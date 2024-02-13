@@ -18,11 +18,11 @@ class ListArticleTest extends TestCase
 
         $article = Article::factory()->create();
 
-        $response = $this->getJson( route('api.v1.article.show', $article) );
+        $response = $this->getJson( route('api.v1.articles.show', $article) );
 
         $response->assertExactJson([
             'data' => [
-                'type' => 'article',
+                'type' => 'articles',
                 'id'   => (string) $article->getRouteKey(),
                 'attributes' => [
                     'title'   => $article->title,
@@ -30,7 +30,7 @@ class ListArticleTest extends TestCase
                     'content' => $article->content
                 ],
                 'links' => [
-                    'self' =>  route('api.v1.article.show', $article)
+                    'self' =>  route('api.v1.articles.show', $article)
 
                 ]
             ]
@@ -43,12 +43,12 @@ class ListArticleTest extends TestCase
         
         $articles = Article::factory()->count(3)->create();
 
-        $response = $this->getJson(route('api.v1.article.index'));
+        $response = $this->getJson(route('api.v1.articles.index'));
 
         $response->assertExactJson([
             'data' => [
                 [
-                    'type' => 'article',
+                    'type' => 'articles',
                     'id' => (string)$articles[0]->getRouteKey(),
                     'attributes' => [
                         'title'   => $articles[0]->title,
@@ -56,11 +56,11 @@ class ListArticleTest extends TestCase
                         'content' => $articles[0]->content,
                     ],
                     'links' => [
-                        'self' => route('api.v1.article.show', $articles[0])
+                        'self' => route('api.v1.articles.show', $articles[0])
                     ]
                 ],
                 [
-                    'type' => 'article',
+                    'type' => 'articles',
                     'id' => (string)$articles[1]->getRouteKey(),
                     'attributes' => [
                         'title'   => $articles[1]->title,
@@ -68,11 +68,11 @@ class ListArticleTest extends TestCase
                         'content' => $articles[1]->content,
                     ],
                     'links' => [
-                        'self' => route('api.v1.article.show', $articles[1])
+                        'self' => route('api.v1.articles.show', $articles[1])
                     ]
                 ],
                 [
-                    'type' => 'article',
+                    'type' => 'articles',
                     'id' => (string)$articles[2]->getRouteKey(),
                     'attributes' => [
                         'title'   => $articles[2]->title,
@@ -80,12 +80,12 @@ class ListArticleTest extends TestCase
                         'content' => $articles[2]->content,
                     ],
                     'links' => [
-                        'self' => route('api.v1.article.show', $articles[2])
+                        'self' => route('api.v1.articles.show', $articles[2])
                     ]
                 ]
                     ],
                     'links' => [
-                        'self' => route('api.v1.article.index')
+                        'self' => route('api.v1.articles.index')
                     ]
         ]);
     }
